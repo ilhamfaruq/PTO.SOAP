@@ -1,0 +1,1631 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SOAP Farmasi Klinis — Pasien DEDY | RSUD Pasar Minggu</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ======================================================
+   DESIGN SYSTEM — Clinical Deep Navy × Teal Meridian
+   ====================================================== */
+:root {
+  --navy-900: #080F1A;
+  --navy-800: #0D1B2A;
+  --navy-700: #142235;
+  --navy-600: #1B2E42;
+  --navy-500: #243852;
+  --navy-400: #2E4566;
+
+  --teal-600: #0B8FA0;
+  --teal-500: #0EA5BB;
+  --teal-400: #30BAC9;
+  --teal-300: #7DD8E4;
+  --teal-100: #D4F3F7;
+  --teal-50:  #EAF9FB;
+
+  --gold-500: #C9941A;
+  --gold-400: #E5A820;
+  --gold-100: #FDF3DC;
+  --gold-50:  #FEFAEF;
+
+  --red-600: #B91C1C;
+  --red-500: #DC2626;
+  --red-100: #FEE2E2;
+  --red-50:  #FFF5F5;
+
+  --green-600: #166534;
+  --green-500: #16A34A;
+  --green-100: #DCFCE7;
+  --green-50:  #F0FDF4;
+
+  --blue-600: #1E40AF;
+  --blue-500: #3B82F6;
+  --blue-100: #DBEAFE;
+  --blue-50:  #EFF6FF;
+
+  --purple-600: #6D28D9;
+  --purple-100: #EDE9FE;
+
+  --gray-900: #111827;
+  --gray-700: #374151;
+  --gray-600: #4B5563;
+  --gray-500: #6B7280;
+  --gray-400: #9CA3AF;
+  --gray-300: #D1D5DB;
+  --gray-200: #E5E7EB;
+  --gray-100: #F3F4F6;
+  --gray-50:  #F9FAFB;
+  --white:    #FFFFFF;
+
+  --font-display: 'DM Serif Display', Georgia, serif;
+  --font-body:    'DM Sans', system-ui, sans-serif;
+  --font-mono:    'DM Mono', 'Courier New', monospace;
+
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+
+  --shadow-sm: 0 1px 3px rgba(0,0,0,.06), 0 1px 2px rgba(0,0,0,.04);
+  --shadow-md: 0 4px 12px rgba(0,0,0,.08), 0 2px 4px rgba(0,0,0,.04);
+  --shadow-lg: 0 10px 30px rgba(0,0,0,.12), 0 4px 8px rgba(0,0,0,.06);
+
+  --transition: all .18s cubic-bezier(.4,0,.2,1);
+}
+
+/* ======================================================  BASE  */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font-body);
+  background: var(--gray-50);
+  color: var(--gray-900);
+  font-size: 14px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ======================================================  TOPBAR  */
+.topbar {
+  background: var(--navy-800);
+  border-bottom: 2px solid var(--teal-600);
+  position: sticky;
+  top: 0;
+  z-index: 200;
+  box-shadow: 0 4px 20px rgba(0,0,0,.35);
+}
+.topbar-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 0 28px;
+  height: 58px;
+}
+.topbar-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+}
+.topbar-icon {
+  width: 32px;
+  height: 32px;
+  background: var(--teal-600);
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.topbar-icon svg { width: 18px; height: 18px; fill: white; }
+.topbar-brand {
+  font-family: var(--font-display);
+  font-size: 17px;
+  color: white;
+  letter-spacing: .01em;
+}
+.topbar-sep {
+  width: 1px;
+  height: 22px;
+  background: var(--navy-500);
+  flex-shrink: 0;
+}
+.topbar-meta {
+  font-size: 12px;
+  color: var(--teal-300);
+  letter-spacing: .04em;
+}
+.topbar-spacer { flex: 1; }
+.topbar-badge {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--teal-100);
+  background: var(--navy-600);
+  padding: 4px 10px;
+  border-radius: 20px;
+  border: 1px solid var(--navy-400);
+  white-space: nowrap;
+}
+.print-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-family: var(--font-body);
+  font-weight: 500;
+  color: var(--navy-800);
+  background: var(--teal-400);
+  border: none;
+  border-radius: var(--radius-md);
+  padding: 6px 14px;
+  cursor: pointer;
+  transition: var(--transition);
+}
+.print-btn:hover { background: var(--teal-300); }
+.print-btn svg { width: 14px; height: 14px; }
+
+/* ======================================================  HERO  */
+.hero {
+  background: var(--navy-800);
+  padding: 36px 28px 0;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    90deg,
+    transparent,
+    transparent 60px,
+    rgba(14,165,187,.03) 60px,
+    rgba(14,165,187,.03) 61px
+  ),
+  repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 60px,
+    rgba(14,165,187,.03) 60px,
+    rgba(14,165,187,.03) 61px
+  );
+  pointer-events: none;
+}
+.hero-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+}
+.hero-eyebrow {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--teal-400);
+  margin-bottom: 10px;
+}
+.hero-title {
+  font-family: var(--font-display);
+  font-size: 32px;
+  color: white;
+  letter-spacing: -.01em;
+  line-height: 1.2;
+  margin-bottom: 6px;
+}
+.hero-title em {
+  font-style: italic;
+  color: var(--teal-300);
+}
+.hero-subtitle {
+  font-size: 14px;
+  color: var(--teal-300);
+  opacity: .8;
+  margin-bottom: 24px;
+}
+.patient-cards {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1px;
+  background: var(--navy-600);
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  overflow: hidden;
+  border: 1px solid var(--navy-500);
+  border-bottom: none;
+  margin-top: 4px;
+}
+.pc-item {
+  background: var(--navy-700);
+  padding: 14px 18px;
+  transition: var(--transition);
+}
+.pc-item:hover { background: var(--navy-600); }
+.pc-label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--teal-400);
+  margin-bottom: 4px;
+}
+.pc-value {
+  font-size: 13px;
+  font-weight: 500;
+  color: white;
+  line-height: 1.35;
+}
+
+/* ======================================================  NAV TABS  */
+.tabs-nav {
+  background: var(--navy-700);
+  border-bottom: 1px solid var(--navy-500);
+  position: sticky;
+  top: 58px;
+  z-index: 150;
+}
+.tabs-nav-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  padding: 0 28px;
+  gap: 2px;
+}
+.tab-btn {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 14px 20px;
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--teal-300);
+  opacity: .65;
+  background: none;
+  border: none;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  transition: var(--transition);
+  white-space: nowrap;
+}
+.tab-btn:hover { opacity: .9; }
+.tab-btn.active {
+  color: var(--teal-300);
+  opacity: 1;
+  border-bottom-color: var(--teal-400);
+}
+.tab-btn .tab-icon {
+  width: 16px;
+  height: 16px;
+  opacity: .8;
+}
+.tab-letter {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  font-size: 12px;
+  font-weight: 600;
+  flex-shrink: 0;
+  font-family: var(--font-mono);
+}
+
+/* ======================================================  CONTENT  */
+.main-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 32px 28px 60px;
+}
+.tab-section { display: none; }
+.tab-section.active { display: block; animation: fadeIn .25s ease; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+
+/* ======================================================  SOAP BLOCKS  */
+.soap-block {
+  background: white;
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--gray-200);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+.soap-block-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--gray-100);
+}
+.soap-monogram {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-size: 18px;
+  font-weight: 500;
+  flex-shrink: 0;
+}
+.mono-s { background: var(--blue-50); color: var(--blue-600); }
+.mono-o { background: var(--green-50); color: var(--green-600); }
+.mono-a { background: var(--gold-50); color: var(--gold-500); }
+.mono-p { background: var(--red-50); color: var(--red-600); }
+
+.soap-block-title { font-size: 16px; font-weight: 600; color: var(--gray-900); }
+.soap-block-sub { font-size: 12px; color: var(--gray-500); margin-top: 1px; }
+.soap-block-body { padding: 20px; }
+
+/* ======================================================  SECTIONS  */
+.content-section { margin-bottom: 22px; }
+.content-section:last-child { margin-bottom: 0; }
+.section-label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--gray-400);
+  margin-bottom: 10px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--gray-100);
+}
+
+/* ======================================================  LISTS  */
+.bullet-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+.bullet-list li {
+  display: flex;
+  gap: 10px;
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--gray-700);
+}
+.bullet-list li::before {
+  content: '—';
+  color: var(--teal-400);
+  flex-shrink: 0;
+  font-weight: 300;
+  margin-top: 0px;
+}
+
+/* ======================================================  TABLES  */
+.table-scroll { overflow-x: auto; border-radius: var(--radius-lg); border: 1px solid var(--gray-200); }
+table.ct {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12.5px;
+}
+table.ct thead tr {
+  background: var(--navy-800);
+}
+table.ct thead th {
+  padding: 9px 12px;
+  text-align: left;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--teal-300);
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  border-right: 1px solid var(--navy-600);
+}
+table.ct thead th:last-child { border-right: none; }
+table.ct tbody tr {
+  border-bottom: 1px solid var(--gray-100);
+  transition: background .1s;
+}
+table.ct tbody tr:last-child { border-bottom: none; }
+table.ct tbody tr:hover { background: var(--gray-50); }
+table.ct tbody tr:nth-child(even) { background: #FAFBFC; }
+table.ct tbody tr:nth-child(even):hover { background: var(--gray-100); }
+table.ct tbody td {
+  padding: 8px 12px;
+  vertical-align: top;
+  color: var(--gray-700);
+  border-right: 1px solid var(--gray-100);
+  line-height: 1.5;
+}
+table.ct tbody td:last-child { border-right: none; }
+table.ct tbody td:first-child { font-weight: 500; color: var(--gray-900); }
+
+/* ======================================================  BADGES  */
+.badge {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 20px;
+  white-space: nowrap;
+  letter-spacing: .02em;
+}
+.b-red    { background: var(--red-100);    color: var(--red-600);    }
+.b-amber  { background: var(--gold-100);   color: var(--gold-500);   }
+.b-green  { background: var(--green-100);  color: var(--green-600);  }
+.b-blue   { background: var(--blue-100);   color: var(--blue-600);   }
+.b-purple { background: var(--purple-100); color: var(--purple-600); }
+.b-gray   { background: var(--gray-100);   color: var(--gray-600);   }
+.b-teal   { background: var(--teal-50);    color: var(--teal-600);   }
+.b-navy   { background: var(--navy-600);   color: var(--teal-300);   }
+
+/* ======================================================  FLAG VALUES  */
+.val-high { color: var(--red-600); font-weight: 600; }
+.val-low  { color: var(--blue-600); font-weight: 600; }
+.val-ok   { color: var(--green-600); font-weight: 500; }
+.val-warn { color: var(--gold-500); font-weight: 600; }
+.mono-val { font-family: var(--font-mono); font-size: 12px; }
+
+/* ======================================================  DTP CARDS  */
+.dtp-grid { display: flex; flex-direction: column; gap: 10px; }
+.dtp-card {
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition: var(--transition);
+}
+.dtp-card:hover { box-shadow: var(--shadow-md); border-color: var(--teal-400); }
+.dtp-card-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 11px 14px;
+  cursor: pointer;
+  background: var(--gray-50);
+  border-bottom: 1px solid var(--gray-100);
+}
+.dtp-num {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 700;
+  flex-shrink: 0;
+  font-family: var(--font-mono);
+  margin-top: 1px;
+}
+.dtp-n-red    { background: var(--red-100);   color: var(--red-600);   }
+.dtp-n-amber  { background: var(--gold-100);  color: var(--gold-500);  }
+.dtp-n-blue   { background: var(--blue-100);  color: var(--blue-600);  }
+.dtp-n-green  { background: var(--green-100); color: var(--green-600); }
+
+.dtp-title { font-size: 13px; font-weight: 600; color: var(--gray-900); line-height: 1.4; flex: 1; }
+.dtp-body {
+  padding: 12px 14px 12px 48px;
+  font-size: 12.5px;
+  color: var(--gray-600);
+  line-height: 1.65;
+}
+
+/* ======================================================  PLAN CARDS  */
+.plan-grid { display: flex; flex-direction: column; gap: 12px; }
+.plan-card {
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: white;
+}
+.plan-card-header {
+  padding: 11px 16px;
+  background: var(--navy-800);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.plan-card-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: white;
+  flex: 1;
+}
+.plan-card-body { padding: 14px 16px; }
+.plan-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 6px 16px; }
+.plan-row { font-size: 12.5px; color: var(--gray-600); line-height: 1.5; }
+.plan-row strong { color: var(--gray-900); font-weight: 500; }
+
+/* ======================================================  ALERT BOXES  */
+.alert {
+  border-radius: var(--radius-md);
+  padding: 11px 14px;
+  font-size: 12.5px;
+  line-height: 1.65;
+  margin-top: 10px;
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+}
+.alert-icon { flex-shrink: 0; font-size: 15px; margin-top: 1px; }
+.alert-red    { background: var(--red-50);   border: 1px solid #FECACA; color: var(--red-600);   }
+.alert-amber  { background: var(--gold-50);  border: 1px solid #FDE68A; color: var(--gold-500);  }
+.alert-green  { background: var(--green-50); border: 1px solid #BBF7D0; color: var(--green-600); }
+.alert-blue   { background: var(--blue-50);  border: 1px solid #BFDBFE; color: var(--blue-600);  }
+.alert-teal   { background: var(--teal-50);  border: 1px solid var(--teal-300); color: var(--teal-600); }
+
+/* ======================================================  SUMMARY STATS  */
+.stats-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 24px;
+}
+.stat-box {
+  background: white;
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-lg);
+  padding: 16px 18px;
+  border-top: 3px solid;
+  box-shadow: var(--shadow-sm);
+}
+.stat-box.s-red    { border-top-color: var(--red-500);   }
+.stat-box.s-amber  { border-top-color: var(--gold-400);  }
+.stat-box.s-teal   { border-top-color: var(--teal-500);  }
+.stat-box.s-green  { border-top-color: var(--green-500); }
+.stat-lbl { font-size: 10px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--gray-500); margin-bottom: 5px; }
+.stat-val { font-size: 28px; font-weight: 600; color: var(--gray-900); line-height: 1; font-family: var(--font-mono); }
+.stat-sub { font-size: 11px; color: var(--gray-400); margin-top: 4px; }
+
+/* ======================================================  TWO COL  */
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+/* ======================================================  SEPARATOR  */
+.content-sep {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--gray-400);
+  margin: 22px 0 10px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--gray-200);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.content-sep::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--gray-100);
+}
+
+/* ======================================================  NOTE BOX  */
+.note-box {
+  background: var(--gray-50);
+  border: 1px solid var(--gray-200);
+  border-left: 3px solid var(--teal-400);
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  padding: 12px 16px;
+  font-size: 12px;
+  color: var(--gray-600);
+  line-height: 1.7;
+  margin-top: 16px;
+}
+.note-box strong { color: var(--gray-900); }
+
+/* ======================================================  SUMMARY TAB  */
+.outcome-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 18px;
+  font-size: 12px;
+  color: var(--gray-600);
+}
+.leg { display: flex; align-items: center; gap: 5px; }
+
+.priority-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin: 20px 0;
+}
+.priority-card {
+  border-radius: var(--radius-lg);
+  padding: 16px 18px;
+  border: 1px solid;
+}
+.priority-card.prio-red   { background: var(--red-50);   border-color: #FECACA; }
+.priority-card.prio-amber { background: var(--gold-50);  border-color: #FDE68A; }
+.priority-card.prio-blue  { background: var(--blue-50);  border-color: #BFDBFE; }
+.prio-eyebrow { font-size: 10px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; margin-bottom: 5px; }
+.prio-red   .prio-eyebrow { color: var(--red-600);  }
+.prio-amber .prio-eyebrow { color: var(--gold-500); }
+.prio-blue  .prio-eyebrow { color: var(--blue-600); }
+.prio-title { font-size: 14px; font-weight: 600; color: var(--gray-900); margin-bottom: 6px; }
+.prio-desc  { font-size: 12px; color: var(--gray-600); line-height: 1.6; }
+
+/* ======================================================  PRINT  */
+@media print {
+  .topbar, .tabs-nav, .print-btn { display: none !important; }
+  body { background: white; font-size: 11px; }
+  .main-content { padding: 12px; }
+  .tab-section { display: block !important; page-break-before: always; }
+  .tab-section:first-child { page-break-before: avoid; }
+  .hero { padding: 16px; }
+  .hero-title { font-size: 22px; }
+  .patient-cards { grid-template-columns: repeat(5,1fr); }
+  .soap-block { box-shadow: none; border: 1px solid var(--gray-300); page-break-inside: avoid; }
+  .dtp-card, .plan-card { page-break-inside: avoid; }
+  .stats-row { grid-template-columns: repeat(4,1fr); }
+  .two-col, .priority-cards { grid-template-columns: repeat(2,1fr); }
+  table.ct { font-size: 10px; }
+  table.ct thead th, table.ct tbody td { padding: 5px 8px; }
+}
+
+/* ======================================================  RESPONSIVE  */
+@media (max-width: 900px) {
+  .patient-cards { grid-template-columns: repeat(3,1fr); }
+  .stats-row { grid-template-columns: repeat(2,1fr); }
+  .two-col, .priority-cards { grid-template-columns: 1fr; }
+  .plan-grid-2 { grid-template-columns: 1fr; }
+  .hero-title { font-size: 24px; }
+  .tabs-nav-inner { overflow-x: auto; }
+}
+@media (max-width: 600px) {
+  .patient-cards { grid-template-columns: repeat(2,1fr); }
+  .topbar-badge { display: none; }
+  .hero { padding: 20px 16px 0; }
+  .main-content { padding: 20px 16px 40px; }
+  .soap-block-body { padding: 14px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ==================== TOPBAR ==================== -->
+<header class="topbar">
+  <div class="topbar-inner">
+    <a href="#" class="topbar-logo">
+      <div class="topbar-icon">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/></svg>
+      </div>
+      <span class="topbar-brand">Farmasi Klinis</span>
+    </a>
+    <div class="topbar-sep"></div>
+    <span class="topbar-meta">RSUD Pasar Minggu · Jakarta Selatan</span>
+    <div class="topbar-spacer"></div>
+    <span class="topbar-badge">SOAP · PCNE V9.1 · TDM</span>
+    <button class="print-btn" onclick="window.print()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+      Cetak
+    </button>
+  </div>
+</header>
+
+<!-- ==================== HERO ==================== -->
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow">Catatan Farmasi Klinis · 09–13 Mei 2026</div>
+    <h1 class="hero-title">SOAP Apoteker Klinis — <em>Pasien DEDY</em></h1>
+    <p class="hero-subtitle">Subjective · Objective · Assessment · Plan &nbsp;|&nbsp; Pharmaceutical Care Framework</p>
+    <div class="patient-cards">
+      <div class="pc-item"><div class="pc-label">Pasien</div><div class="pc-value">DEDY</div></div>
+      <div class="pc-item"><div class="pc-label">Ruang / RS</div><div class="pc-value">6002 · RSUD Pasar Minggu</div></div>
+      <div class="pc-item"><div class="pc-label">DPJP</div><div class="pc-value">dr. Marscha Sp.P &amp; dr. Ardi Sp.PD</div></div>
+      <div class="pc-item"><div class="pc-label">Periode</div><div class="pc-value">09–13 Mei 2026</div></div>
+      <div class="pc-item"><div class="pc-label">Dikaji Oleh</div><div class="pc-value">Apoteker Klinis</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== TABS NAV ==================== -->
+<nav class="tabs-nav">
+  <div class="tabs-nav-inner">
+    <button class="tab-btn active" onclick="showTab('s',this)">
+      <span class="tab-letter" style="background:#DBEAFE;color:#1E40AF">S</span>
+      Subjektif
+    </button>
+    <button class="tab-btn" onclick="showTab('o',this)">
+      <span class="tab-letter" style="background:#DCFCE7;color:#166534">O</span>
+      Objektif
+    </button>
+    <button class="tab-btn" onclick="showTab('a',this)">
+      <span class="tab-letter" style="background:#FDF3DC;color:#C9941A">A</span>
+      Penilaian
+    </button>
+    <button class="tab-btn" onclick="showTab('p',this)">
+      <span class="tab-letter" style="background:#FEE2E2;color:#B91C1C">P</span>
+      Rencana
+    </button>
+    <button class="tab-btn" onclick="showTab('sum',this)">
+      <span class="tab-letter" style="background:#EDE9FE;color:#6D28D9">∑</span>
+      Ringkasan
+    </button>
+  </div>
+</nav>
+
+<!-- ==================== MAIN CONTENT ==================== -->
+<main class="main-content">
+
+<!-- ========================================= TAB S ========================================= -->
+<section id="tab-s" class="tab-section active">
+
+  <div class="soap-block">
+    <div class="soap-block-header">
+      <div class="soap-monogram mono-s">S</div>
+      <div>
+        <div class="soap-block-title">Subjektif</div>
+        <div class="soap-block-sub">Data yang diperoleh dari keluhan langsung pasien dan keluarga serta riwayat pengobatan</div>
+      </div>
+    </div>
+    <div class="soap-block-body">
+
+      <div class="content-section">
+        <div class="section-label">Keluhan Utama</div>
+        <ul class="bullet-list">
+          <li>Mual (nausea) hilang timbul — keluhan primer sejak ±5 hari sebelum masuk RSUD Pasar Minggu</li>
+          <li>Sesak napas (dyspnea) intermiten — membaik saat duduk, memburuk saat berbaring</li>
+          <li>Muntah &gt;5× sehari sebelum masuk RSUD Pesanggrahan (05 Mei) — seluruh asupan oral dimuntahkan</li>
+          <li>Lemas dan sulit beraktivitas — pasien merasa tubuh sangat lemah</li>
+          <li>Nyeri ulu hati / epigastrium (NT+ epigastrium dikonfirmasi saat pemeriksaan fisik)</li>
+        </ul>
+      </div>
+
+      <div class="content-section">
+        <div class="section-label">Riwayat Penyakit Sekarang</div>
+        <ul class="bullet-list">
+          <li><strong>TB Paru aktif:</strong> konfirmasi GeneXpert/TCM 25 Maret 2026 — MTB TERDETEKSI RENDAH, RESISTANSI RIF TIDAK TERDETEKSI. OAT dimulai 25 Maret 2026 di RS Murni Teguh</li>
+          <li><strong>OAT dihentikan 05 Mei 2026</strong> di RSUD Pesanggrahan akibat hepatotoksisitas berat (DILI). Dipindahkan ke RSUD Pasar Minggu 09 Mei 2026</li>
+          <li><strong>Diabetes Melitus Tipe 2</strong> — sudah diketahui, sebelumnya konsumsi Metformin dari Puskesmas</li>
+          <li>Riwayat mual-muntah membaik bertahap setelah pemberian SNMC + penghentian OAT</li>
+          <li>Munculnya edema tungkai bilateral pada H4 (12 Mei 2026) — keluhan baru yang belum ada sebelumnya</li>
+        </ul>
+      </div>
+
+      <div class="content-section">
+        <div class="section-label">Rekonsiliasi Obat (Riwayat Pengobatan)</div>
+        <div class="table-scroll">
+        <table class="ct">
+          <thead>
+            <tr>
+              <th>Nama Obat</th>
+              <th>Dosis</th>
+              <th>Frekuensi</th>
+              <th>Indikasi</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Arsitam 500 mg (INH/RIF/PZA)</td>
+              <td class="mono-val">1× sehari</td>
+              <td>Pagi hari</td>
+              <td>OAT TB Paru lini pertama</td>
+              <td><span class="badge b-red">STOP 05/05 — DILI berat</span></td>
+            </tr>
+            <tr>
+              <td>Rifamtibi 450 mg (Rifampisin)</td>
+              <td class="mono-val">1× sehari</td>
+              <td>Pagi hari</td>
+              <td>Komponen OAT — Rifampisin</td>
+              <td><span class="badge b-red">STOP 05/05 — DILI berat</span></td>
+            </tr>
+            <tr>
+              <td>Metformin 500 mg</td>
+              <td class="mono-val">3× sehari</td>
+              <td>Sesudah makan</td>
+              <td>DM Tipe 2 (dari Puskesmas)</td>
+              <td><span class="badge b-red">STOP — Kontraindikasi AKI eGFR 22</span></td>
+            </tr>
+            <tr>
+              <td>Curcuma</td>
+              <td class="mono-val">3× sehari</td>
+              <td>Sesudah makan</td>
+              <td>Hepatoprotektor</td>
+              <td><span class="badge b-green">Dilanjutkan</span></td>
+            </tr>
+            <tr>
+              <td>Ondansetron</td>
+              <td class="mono-val">Sesuai kebutuhan</td>
+              <td>PRN</td>
+              <td>Antiemetik — mual</td>
+              <td><span class="badge b-green">Dilanjutkan IV q8h</span></td>
+            </tr>
+          </tbody>
+        </table>
+        </div>
+      </div>
+
+      <div class="content-section">
+        <div class="section-label">Alergi &amp; Faktor Sosial</div>
+        <ul class="bullet-list">
+          <li><strong>Alergi obat:</strong> tidak ada yang terdokumentasi dalam catatan medis</li>
+          <li><strong>Kepatuhan OAT:</strong> mengikuti pengobatan di RS Murni Teguh hingga DILI terjadi (±6 minggu OAT)</li>
+          <li><strong>Pola makan:</strong> asupan sangat menurun akibat mual berat; mulai membaik H4–H5 rawat inap</li>
+          <li><strong>Merokok / alkohol:</strong> tidak terdokumentasi dalam catatan yang tersedia</li>
+        </ul>
+      </div>
+
+      <div class="content-section">
+        <div class="section-label">Perkembangan Keluhan Harian (Laporan Pasien)</div>
+        <div class="table-scroll">
+        <table class="ct">
+          <thead>
+            <tr><th>Hari</th><th>Tanggal</th><th>Mual</th><th>Sesak Napas</th><th>Nafsu Makan</th><th>Catatan Klinis</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>H1</td><td>09 Mei</td>
+              <td><span class="badge b-red">Berat</span></td>
+              <td><span class="badge b-amber">Sedang</span></td>
+              <td><span class="badge b-red">Tidak ada</span></td>
+              <td>Masih muntah, belum bisa makan. Masuk IGD 00:42</td>
+            </tr>
+            <tr>
+              <td>H2</td><td>10 Mei</td>
+              <td><span class="badge b-amber">Berkurang</span></td>
+              <td><span class="badge b-amber">Sedang</span></td>
+              <td><span class="badge b-red">Sangat minimal</span></td>
+              <td>SpO₂ sempat 90% — O₂ belum dimulai. Mulai minum sedikit</td>
+            </tr>
+            <tr>
+              <td>H3</td><td>11 Mei</td>
+              <td><span class="badge b-amber">Berkurang</span></td>
+              <td><span class="badge b-green">Membaik</span></td>
+              <td><span class="badge b-amber">Sedikit</span></td>
+              <td>SGOT turun dramatis 1.405→81. O₂ NK 3 LPM dimulai</td>
+            </tr>
+            <tr>
+              <td>H4</td><td>12 Mei</td>
+              <td><span class="badge b-green">Ringan</span></td>
+              <td><span class="badge b-green">Membaik</span></td>
+              <td><span class="badge b-amber">Sedang</span></td>
+              <td>Edema tungkai bilateral muncul — keluhan baru. GDS 109 (hipo-risk)</td>
+            </tr>
+            <tr>
+              <td>H5</td><td>13 Mei</td>
+              <td><span class="badge b-green">Ringan</span></td>
+              <td><span class="badge b-green">Baik</span></td>
+              <td><span class="badge b-green">Membaik</span></td>
+              <td>Nafsu makan kembali, lemas berkurang, kondisi membaik</td>
+            </tr>
+          </tbody>
+        </table>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ========================================= TAB O ========================================= -->
+<section id="tab-o" class="tab-section">
+
+  <div class="soap-block">
+    <div class="soap-block-header">
+      <div class="soap-monogram mono-o">O</div>
+      <div>
+        <div class="soap-block-title">Objektif</div>
+        <div class="soap-block-sub">Data terukur: tanda vital serial, laboratorium, pemeriksaan fisik, dan pencitraan</div>
+      </div>
+    </div>
+    <div class="soap-block-body">
+
+      <div class="content-section">
+        <div class="section-label">Data Antropometri</div>
+        <div class="table-scroll">
+        <table class="ct">
+          <thead><tr><th>Parameter</th><th>Nilai</th><th>Referensi</th><th>Interpretasi</th></tr></thead>
+          <tbody>
+            <tr><td>Berat Badan</td><td class="mono-val">60 kg</td><td>—</td><td>Per rekam medis</td></tr>
+            <tr><td>Tinggi Badan</td><td class="mono-val">175 cm</td><td>—</td><td>Per rekam medis</td></tr>
+            <tr><td>IMT</td><td class="mono-val val-ok">19,6 kg/m²</td><td>18,5–24,9</td><td><span class="badge b-green">Normal</span> — Tim gizi: BBP 55 kg / TBP 161 cm → IMT 21,2</td></tr>
+          </tbody>
+        </table>
+        </div>
+      </div>
+
+      <div class="content-section">
+        <div class="section-label">Tanda Vital Serial (H1–H5)</div>
+        <div class="table-scroll">
+        <table class="ct">
+          <thead>
+            <tr><th>Parameter</th><th>Normal</th><th>H1 (09/05)</th><th>H2 (10/05)</th><th>H3 (11/05)</th><th>H4 (12/05)</th><th>H5 (13/05)</th><th>Interpretasi</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Tekanan Darah</td><td>&lt;120/80</td>
+              <td class="val-high mono-val">144/85</td>
+              <td class="val-high mono-val">145/86</td>
+              <td class="val-high mono-val">149/84</td>
+              <td class="val-high mono-val">159/87</td>
+              <td class="val-high mono-val">~150/85</td>
+              <td><span class="badge b-red">Hipertensi — tidak diobati selama 5 hari</span></td>
+            </tr>
+            <tr>
+              <td>Nadi (x/mnt)</td><td>60–100</td>
+              <td class="val-warn mono-val">99</td>
+              <td class="val-high mono-val">104</td>
+              <td class="mono-val">95</td>
+              <td class="mono-val">90</td>
+              <td class="mono-val">88</td>
+              <td><span class="badge b-amber">Takikardia awal, membaik H3–H5</span></td>
+            </tr>
+            <tr>
+              <td>Laju Napas</td><td>12–20</td>
+              <td class="val-high mono-val">24</td>
+              <td class="mono-val">20</td>
+              <td class="mono-val">19</td>
+              <td class="mono-val">19</td>
+              <td class="mono-val">18</td>
+              <td><span class="badge b-green">Membaik — dalam batas normal H2+</span></td>
+            </tr>
+            <tr>
+              <td>Suhu (°C)</td><td>36–37,5</td>
+              <td class="val-ok mono-val">36,0</td>
+              <td class="val-ok mono-val">36,3</td>
+              <td class="val-ok mono-val">36,5</td>
+              <td class="val-ok mono-val">36,4</td>
+              <td class="val-ok mono-val">36,5</td>
+              <td><span class="badge b-green">Afebrile — stabil sepanjang rawat inap</span></td>
+            </tr>
+            <tr>
+              <td>SpO₂ (%)</td><td>&gt;95%</td>
+              <td class="val-ok mono-val">100% (RA)</td>
+              <td class="val-high mono-val">90% (RA)</td>
+              <td class="val-ok mono-val">99% (NK)</td>
+              <td class="val-ok mono-val">97% (NK)</td>
+              <td class="val-ok mono-val">98% (NK)</td>
+              <td><span class="badge b-amber">SpO₂ 90% H2 → O₂ NK 3 LPM dimulai H3</span></td>
+            </tr>
+            <tr>
+              <td>GCS</td><td>15</td>
+              <td class="val-ok mono-val">15</td>
+              <td class="val-ok mono-val">15</td>
+              <td class="val-ok mono-val">15</td>
+              <td class="val-ok mono-val">15</td>
+              <td class="val-ok mono-val">15</td>
+              <td><span class="badge b-green">Kompos mentis sepanjang perawatan</span></td>
+            </tr>
+          </tbody>
+        </table>
+        </div>
+      </div>
+
+      <div class="content-section">
+        <div class="section-label">Laboratorium — Fungsi Hati (Serial Kritis)</div>
+        <div class="table-scroll">
+        <table class="ct">
+          <thead>
+            <tr><th>Parameter</th><th>Normal</th><th>09 Mei (H1)</th><th>11 Mei (H3)</th><th>Perubahan</th><th>Target TDM</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>SGOT (AST)</td><td>&lt;50 U/L</td>
+              <td class="val-high mono-val">1.405 U/L<br><small style="font-weight:400;color:#6B7280">(28× BAN)</small></td>
+              <td class="val-warn mono-val">81 U/L<br><small style="font-weight:400;color:#6B7280">(1,6× BAN)</small></td>
+              <td><span class="badge b-green">↓ 94% — sangat dramatis</span></td>
+              <td class="mono-val">&lt;100 U/L (&lt;2× BAN)</td>
+            </tr>
+            <tr>
+              <td>SGPT (ALT)</td><td>&lt;50 U/L</td>
+              <td class="val-high mono-val">1.936 U/L<br><small style="font-weight:400;color:#6B7280">(38,7× BAN)</small></td>
+              <td class="val-high mono-val">736 U/L<br><small style="font-weight:400;color:#6B7280">(14,7× BAN)</small></td>
+              <td><span class="badge b-amber">↓ 62% — masih tinggi</span></td>
+              <td class="mono-val">&lt;100 U/L (syarat restart OAT)</td>
+            </tr>
+            <tr>
+              <td>Bilirubin Total</td><td>&lt;1,0 mg/dL</td>
+              <td class="val-high mono-val">3,58 mg/dL</td>
+              <td class="val-warn mono-val">1,22 mg/dL</td>
+              <td><span class="badge b-green">↓ 66%</span></td>
+              <td class="mono-val">&lt;1,0 mg/dL</td>
+            </tr>
+            <tr>
+              <td>Bilirubin Direk</td><td>&lt;0,30 mg/dL</td>
+              <td class="val-high mono-val">2,93 mg/dL</td>
+              <td class="val-warn mono-val">0,83 mg/dL</td>
+              <td><span class="badge b-green">↓ 72%</span></td>
+              <td class="mono-val">&lt;0,30 mg/dL</td>
+            </tr>
+          </tbody>
+        </table>
+        </div>
+      </div>
+
+      <div class="content-section">
+        <div class="section-label">Laboratorium — Fungsi Ginjal (Serial)</div>
+        <div class="table-scroll">
+        <table class="ct">
+          <thead>
+            <tr><th>Parameter</th><th>Normal</th><th>09 Mei (H1)</th><th>11 Mei (H3)</th><th>Perubahan</th><th>Implikasi Farmakoterapi</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Ureum</td><td>&lt;48 mg/dL</td>
+              <td class="val-high mono-val">151 mg/dL</td>
+              <td class="val-high mono-val">115 mg/dL</td>
+              <td><span class="badge b-amber">↓ 24%</span></td>
+              <td>Monitor keseimbangan cairan dan retensi nitrogen</td>
+            </tr>
+            <tr>
+              <td>Kreatinin</td><td>0,70–1,30 mg/dL</td>
+              <td class="val-high mono-val">3,11 mg/dL</td>
+              <td class="val-high mono-val">1,74 mg/dL</td>
+              <td><span class="badge b-green">↓ 44%</span></td>
+              <td>Metformin STOP; Levofloksasin q48h; hindari nefrotoksin</td>
+            </tr>
+            <tr>
+              <td>eGFR</td><td>&gt;60 mL/mnt</td>
+              <td class="val-high mono-val">22 mL/mnt<br><small style="font-weight:400;color:#6B7280">(CKD Std IV)</small></td>
+              <td class="val-warn mono-val">~35 mL/mnt<br><small style="font-weight:400;color:#6B7280">(estimasi)</small></td>
+              <td><span class="badge b-amber">Membaik, belum normal</span></td>
+              <td>Sesuaikan dosis semua obat yang diekskresi ginjal</td>
+            </tr>
+          </tbody>
+        </table>
+        </div>
+      </div>
+
+      <div class="content-section">
+        <div class="section-label">Laboratorium — Hematologi, Glikemik &amp; Serologi (H1)</div>
+        <div class="table-scroll">
+        <table class="ct">
+          <thead>
+            <tr><th>Parameter</th><th>Hasil</th><th>Normal</th><th>Flag</th><th>Signifikansi Klinis &amp; Farmasi</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Hemoglobin</td><td class="val-low mono-val">12,0 g/dL</td><td>13,2–17,3</td><td><span class="badge b-blue">Rendah</span></td><td>Anemia ringan pada pria — perlu investigasi etiologi</td></tr>
+            <tr><td>RDW</td><td class="val-high mono-val">19,5%</td><td>11,5–14,5</td><td><span class="badge b-red">Sangat Tinggi</span></td><td>Anemia campuran / komponen defisiensi besi</td></tr>
+            <tr><td>Trombosit</td><td class="val-low mono-val">120 × 10³/µL</td><td>150–440</td><td><span class="badge b-amber">Rendah Ringan</span></td><td>Trombositopenia ringan — pantau risiko perdarahan</td></tr>
+            <tr><td>NLR</td><td class="val-high mono-val">17,60</td><td>&lt;3,12</td><td><span class="badge b-red">Sangat Tinggi</span></td><td>Inflamasi / risiko sepsis aktif</td></tr>
+            <tr><td>CRP Kuantitatif</td><td class="val-high mono-val">36,1 mg/L</td><td>&lt;5,0</td><td><span class="badge b-red">Tinggi</span></td><td>Proses inflamasi sistemik aktif — pantau respons antibiotik</td></tr>
+            <tr><td>HbA1c</td><td class="val-high mono-val">8,5%</td><td>&lt;7,0% (target)</td><td><span class="badge b-red">Di Atas Target</span></td><td>DM tidak terkontrol 3 bulan terakhir. Target: &lt;7% (ADA/PERKENI)</td></tr>
+            <tr><td>GDS Serial H4</td><td class="val-warn mono-val">147/171/109</td><td>70–180 mg/dL</td><td><span class="badge b-amber">Fluktuatif</span></td><td>GDS 109 (18:00) — risiko hipoglikemia. Pantau ketat</td></tr>
+            <tr><td>HBsAg</td><td class="val-ok">Non-Reaktif</td><td>Non-Reaktif</td><td><span class="badge b-green">Normal</span></td><td>Hepatitis B disingkirkan sebagai penyebab DILI</td></tr>
+            <tr><td>Anti-HCV</td><td class="val-ok">Non-Reaktif</td><td>Non-Reaktif</td><td><span class="badge b-green">Normal</span></td><td>Hepatitis C disingkirkan sebagai penyebab DILI</td></tr>
+            <tr><td>Anti-HAV IgM</td><td class="val-ok">Non-Reaktif</td><td>Non-Reaktif</td><td><span class="badge b-green">Normal</span></td><td>Hepatitis A disingkirkan</td></tr>
+          </tbody>
+        </table>
+        </div>
+      </div>
+
+      <div class="content-section">
+        <div class="section-label">Pemeriksaan Fisik yang Relevan</div>
+        <ul class="bullet-list">
+          <li><strong>Mata:</strong> Sklera ikterik (+/+) — jaundice terkonfirmasi H1, membaik bertahap H3–H5 sejalan dengan turunnya bilirubin</li>
+          <li><strong>Abdomen:</strong> Nyeri tekan epigastrium (+), perut datar, bising usus normal — mendukung penggunaan omeprazol dan sukralfat</li>
+          <li><strong>Ekstremitas:</strong> Tidak ada edema H1–H3; edema tungkai bilateral pitting (+) muncul baru pada H4 (12 Mei) — perlu investigasi penyebab</li>
+          <li><strong>Paru:</strong> Vesikular, tidak ada ronki/mengi pada pemeriksaan H3–H5; SpO₂ membaik dengan O₂ NK 3 LPM</li>
+        </ul>
+      </div>
+
+      <div class="content-section">
+        <div class="section-label">Pencitraan &amp; Pemeriksaan Penunjang</div>
+        <div class="table-scroll">
+        <table class="ct">
+          <thead>
+            <tr><th>Pemeriksaan</th><th>Tanggal</th><th>Hasil</th><th>Relevansi Farmakoterapi</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Foto Toraks</td><td>05 Mei 2026</td><td>Efusi pleura dextra, kardiomegali, pola TB aktif</td><td>Efusi terkait TB → OAT perlu dilanjutkan; kardiomegali → risiko hipertensi + edema memerlukan antihipertensi</td></tr>
+            <tr><td>USG Abdomen</td><td>07 Mei 2026</td><td>Sistitis, asites; tidak ada batu/kolesistitis</td><td>Asites → pertimbangkan hipoalbuminemia; sistitis → perlu terapi antibiotik terpilih?</td></tr>
+            <tr><td>GeneXpert/TCM Sputum</td><td>25 Mar 2026</td><td>MTB TERDETEKSI RENDAH; RIF TIDAK RESISTAN</td><td>Regimen OAT lini pertama valid dan aman untuk di-restart saat fungsi hati pulih</td></tr>
+            <tr><td>EKG</td><td>09 Mei 2026</td><td>Dipesan — nilai QTc tidak terdokumentasi dalam catatan</td><td><strong>KRITIS:</strong> nilai QTc wajib dikonfirmasi — Levofloksasin + Ondansetron = risiko pemanjangan QT aditif</td></tr>
+          </tbody>
+        </table>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ========================================= TAB A ========================================= -->
+<section id="tab-a" class="tab-section">
+
+  <div class="soap-block">
+    <div class="soap-block-header">
+      <div class="soap-monogram mono-a">A</div>
+      <div>
+        <div class="soap-block-title">Penilaian (Assessment)</div>
+        <div class="soap-block-sub">Identifikasi Drug Therapy Problems (DTP), analisis klinik farmakoterapi, dan evaluasi respons terapi</div>
+      </div>
+    </div>
+    <div class="soap-block-body">
+
+      <div class="content-section">
+        <div class="section-label">Ringkasan Masalah Aktif &amp; Diagnosis</div>
+        <div class="table-scroll">
+        <table class="ct">
+          <thead>
+            <tr><th>Diagnosis</th><th>ICD-10</th><th>Status</th><th>Penilaian Farmakoterapi Apoteker</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>DILI ec OAT</td><td class="mono-val">K71.2</td><td><span class="badge b-amber">Aktif — Membaik</span></td><td>SNMC selesai (H1–H2); SGOT 81 ✓; SGPT masih 736 U/L — belum memenuhi syarat restart OAT</td></tr>
+            <tr><td>TB Paru</td><td class="mono-val">A15.11</td><td><span class="badge b-red">Aktif — OAT Ditangguhkan</span></td><td>KRITIS: TB tanpa pengobatan sejak 05 Mei. Rencana re-introduksi bertahap mendesak disusun</td></tr>
+            <tr><td>DM Tipe 2</td><td class="mono-val">E11</td><td><span class="badge b-amber">Aktif — Suboptimal</span></td><td>HbA1c 8,5%; GDS terkontrol dengan Insulin 3×8→3×10 IU. Discharge plan: Metformin + Gliklazid</td></tr>
+            <tr><td>AKI superimposed CKD</td><td class="mono-val">N17.94</td><td><span class="badge b-amber">Aktif — Membaik</span></td><td>Cr 3,11→1,74; eGFR membaik. Hindari nefrotoksin; sesuaikan dosis semua obat yang renally-cleared</td></tr>
+            <tr><td>Efusi Pleura Dextra</td><td class="mono-val">J90</td><td><span class="badge b-blue">Stabil Klinis</span></td><td>Tatalaksana konservatif; O₂ NK 3 LPM efektif. Akan resolusi setelah OAT dilanjutkan</td></tr>
+            <tr><td>Hipertensi</td><td class="mono-val">I10</td><td><span class="badge b-red">Aktif — Tidak Diobati</span></td><td>TD 144–159 mmHg persisten 5 hari; tidak ada antihipertensi. Usulan: Amlodipin 5 mg/hari</td></tr>
+            <tr><td>Sindrom Dispepsia</td><td class="mono-val">K30</td><td><span class="badge b-green">Membaik</span></td><td>Omeprazol 2×40 mg IV + Sukralfat 3×15 mL efektif; mual berkurang signifikan</td></tr>
+            <tr><td>Anemia + RDW tinggi</td><td class="mono-val">D64.9</td><td><span class="badge b-blue">Belum Diselidiki</span></td><td>Hb 12,0; RDW 19,5%. Perlu: feritin, Fe serum, TIBC, retikulosit sebelum pulang</td></tr>
+          </tbody>
+        </table>
+        </div>
+      </div>
+
+      <div class="content-section">
+        <div class="section-label">Identifikasi Drug Therapy Problems (DTP) — Per Cipolle, Strand &amp; Morley</div>
+        <div class="dtp-grid">
+
+          <div class="dtp-card">
+            <div class="dtp-card-header">
+              <div class="dtp-num dtp-n-red">1</div>
+              <div class="dtp-title">Efek Samping Obat — DILI berat akibat OAT (INH + RIF + PZA)</div>
+              <span class="badge b-red" style="flex-shrink:0">Kritis · Nyata</span>
+            </div>
+            <div class="dtp-body">SGOT 1.405 (28× BAN), SGPT 1.936 (38,7× BAN) — pola hepatoselular dominan. Pirazinamid adalah komponen paling hepatotoksik. DILI terkonfirmasi: viral hepatitis disingkirkan (HBsAg−, HCV−, HAV−). Respons penghentian OAT + SNMC: SGOT turun 94% dalam 48 jam. OAT tetap kontraindikasi hingga SGPT &lt;2× BAN (&lt;100 U/L).</div>
+          </div>
+
+          <div class="dtp-card">
+            <div class="dtp-card-header">
+              <div class="dtp-num dtp-n-red">2</div>
+              <div class="dtp-title">Indikasi Tidak Diobati — TB Paru aktif tanpa OAT</div>
+              <span class="badge b-red" style="flex-shrink:0">Kritis · Nyata</span>
+            </div>
+            <div class="dtp-body">GeneXpert: MTB TERDETEKSI RENDAH, sensitif RIF. OAT ditangguhkan 05 Mei — jeda &gt;1 minggu berisiko progresi penyakit, penularan, dan kemunculan resistansi obat. Diperlukan protokol re-introduksi bertahap: Rifampisin → INH → Etambutol/PZA. Belum dapat dimulai karena SGPT masih 736 U/L pada H3.</div>
+          </div>
+
+          <div class="dtp-card">
+            <div class="dtp-card-header">
+              <div class="dtp-num dtp-n-amber">3</div>
+              <div class="dtp-title">Obat Tidak Sesuai / Kontraindikasi — Metformin pada AKI eGFR 22</div>
+              <span class="badge b-amber" style="flex-shrink:0">Tinggi · Nyata</span>
+            </div>
+            <div class="dtp-body">Metformin dikontraindikasikan bila eGFR &lt;30 mL/mnt (panduan KDIGO). eGFR pasien = 22 mL/mnt — risiko akumulasi dan asidosis laktat fatal. Sudah dihentikan dan diganti Insulin Novorapid SK. Masalah rekonsiliasi obat: Metformin seharusnya sudah dihentikan lebih awal di tingkat Puskesmas saat eGFR mulai turun.</div>
+          </div>
+
+          <div class="dtp-card">
+            <div class="dtp-card-header">
+              <div class="dtp-num dtp-n-amber">4</div>
+              <div class="dtp-title">Interaksi Obat Bermakna Klinis — Levofloksasin + Ondansetron (QT aditif)</div>
+              <span class="badge b-amber" style="flex-shrink:0">Tinggi · Potensial</span>
+            </div>
+            <div class="dtp-body">Keduanya memperpanjang interval QTc secara independen (Kelas I risiko). Penggunaan bersamaan menciptakan risiko aditif torsades de pointes dan aritmia ventrikel. Levofloksasin sudah dihentikan 09 Mei. Nilai QTc dari EKG dasar BELUM terdokumentasi dalam catatan — HARUS dikonfirmasi segera untuk keamanan Ondansetron yang masih dilanjutkan.</div>
+          </div>
+
+          <div class="dtp-card">
+            <div class="dtp-card-header">
+              <div class="dtp-num dtp-n-amber">5</div>
+              <div class="dtp-title">Dosis Tidak Optimal — Insulin awal kurang efektif; HbA1c 8,5%</div>
+              <span class="badge b-amber" style="flex-shrink:0">Tinggi · Nyata</span>
+            </div>
+            <div class="dtp-body">Dosis awal 3×4 IU (skala geser) tidak mencukupi — GDS tetap 246 mg/dL pada H1. Diperlukan titrasi: 3×4 → 3×8 → 3×10 IU. HbA1c 8,5% mencerminkan kontrol glikemik buruk 3 bulan terakhir (target &lt;7% per ADA/PERKENI). Risiko hipoglikemia: GDS 109 mg/dL (H4 pukul 18:00) memerlukan pemantauan ketat dan penyesuaian dosis jika asupan belum optimal.</div>
+          </div>
+
+          <div class="dtp-card">
+            <div class="dtp-card-header">
+              <div class="dtp-num dtp-n-blue">6</div>
+              <div class="dtp-title">Indikasi Tidak Diobati — Hipertensi persisten tanpa antihipertensi</div>
+              <span class="badge b-blue" style="flex-shrink:0">Sedang · Nyata</span>
+            </div>
+            <div class="dtp-body">TD 144–159/85–87 mmHg pada seluruh pemeriksaan selama 5 hari rawat inap. Kardiomegali pada foto toraks menunjukkan kerusakan organ target kronik. Pada DM + CKD, target TD &lt;130/80 mmHg (ADA/KDIGO 2021). RAAS dihindari dulu saat AKI aktif. Amlodipin 5 mg sekali sehari adalah pilihan paling aman untuk kondisi ini.</div>
+          </div>
+
+          <div class="dtp-card">
+            <div class="dtp-card-header">
+              <div class="dtp-num dtp-n-blue">7</div>
+              <div class="dtp-title">Efek Samping Potensial — Edema bilateral baru, kemungkinan kelebihan cairan NaCl 0,9%</div>
+              <span class="badge b-blue" style="flex-shrink:0">Sedang · Nyata</span>
+            </div>
+            <div class="dtp-body">Edema tungkai bilateral pitting muncul H4 (12 Mei). NaCl 0,9% 1.000 mL/hari mungkin berlebihan untuk pasien CKD dengan ekskresi ginjal terbatas. Diferensial: (1) hipoalbuminemia akibat DILI berat (produksi albumin menurun), (2) gagal jantung (kardiomegali pada foto toraks), (3) asites hepatik (USG positif asites). Serum albumin dan BNP/proBNP belum diperiksa.</div>
+          </div>
+
+          <div class="dtp-card">
+            <div class="dtp-card-header">
+              <div class="dtp-num dtp-n-green">8</div>
+              <div class="dtp-title">Indikasi Tidak Diobati — Anemia campuran tidak diselidiki dan tidak ditangani</div>
+              <span class="badge b-gray" style="flex-shrink:0">Rendah-Sedang</span>
+            </div>
+            <div class="dtp-body">Hb 12,0 g/dL + RDW 19,5% (sangat tinggi, normalnya &lt;14,5%) menunjukkan anemia campuran dengan komponen defisiensi besi. Tidak ada suplemen besi atau investigasi etiologi yang dilakukan. Penanganan ditunda hingga GI stabil — keputusan klinis tepat sementara ini, namun perlu direncanakan sebelum pasien pulang.</div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="content-section">
+        <div class="section-label">Evaluasi Respons Terapi — Efektivitas &amp; Keamanan H5</div>
+        <div class="table-scroll">
+        <table class="ct">
+          <thead>
+            <tr><th>Obat / Kondisi</th><th>Target Terapi</th><th>Respons H5</th><th>Status</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>SNMC — DILI</td><td>SGOT/SGPT turun ke &lt;2× BAN</td><td>SGOT 81 U/L (tercapai); SGPT 736 U/L (belum)</td><td><span class="badge b-amber">Sebagian Tercapai</span></td></tr>
+            <tr><td>Ondansetron — Mual</td><td>Mual berkurang; toleransi oral membaik</td><td>Mual berkurang signifikan; asupan oral kembali H4–H5</td><td><span class="badge b-green">Tercapai</span></td></tr>
+            <tr><td>Seftriakson — Infeksi</td><td>CRP turun, afebrile, klinis membaik</td><td>Afebrile sepanjang perawatan; CRP ulang terjadwal 14 Mei</td><td><span class="badge b-blue">Dalam Evaluasi</span></td></tr>
+            <tr><td>Insulin Novorapid — DM</td><td>GDS 140–180 mg/dL (target rawat inap ADA)</td><td>GDS 147–171 H4; 109 H4 sore (risiko hipoglikemia)</td><td><span class="badge b-amber">Sebagian — Pantau Hipo</span></td></tr>
+            <tr><td>NaCl 0,9% + Hidrasi</td><td>Kreatinin menurun; tidak ada edema baru</td><td>Cr membaik (3,11→1,74) namun edema bilateral muncul H4</td><td><span class="badge b-amber">Parsial — Edema Perlu Ditangani</span></td></tr>
+            <tr><td>O₂ NK 3 LPM</td><td>SpO₂ &gt;95% stabil</td><td>SpO₂ 97–99% H3–H5</td><td><span class="badge b-green">Tercapai</span></td></tr>
+            <tr><td>Hipertensi (tidak diobati)</td><td>TD &lt;130/80 mmHg</td><td>TD masih 144–159/85–87 mmHg persisten</td><td><span class="badge b-red">Tidak Tercapai</span></td></tr>
+          </tbody>
+        </table>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ========================================= TAB P ========================================= -->
+<section id="tab-p" class="tab-section">
+
+  <div class="soap-block">
+    <div class="soap-block-header">
+      <div class="soap-monogram mono-p">P</div>
+      <div>
+        <div class="soap-block-title">Rencana (Plan)</div>
+        <div class="soap-block-sub">Rencana farmakoterapi komprehensif, parameter pemantauan, edukasi pasien, dan tindak lanjut rawat jalan</div>
+      </div>
+    </div>
+    <div class="soap-block-body">
+
+      <div class="content-sep">1. Rencana Terapi Per Obat / Kondisi</div>
+      <div class="plan-grid">
+
+        <div class="plan-card">
+          <div class="plan-card-header">
+            <div class="plan-card-title">OAT (Arsitam + Rifamtibi) — Protokol Re-introduksi Bertahap</div>
+            <span class="badge b-red">PRIORITAS MENDESAK</span>
+          </div>
+          <div class="plan-card-body">
+            <div class="plan-grid-2">
+              <div class="plan-row"><strong>Tujuan terapi:</strong> Eradikasi MTB, cegah progresi TB, cegah resistansi dan penularan</div>
+              <div class="plan-row"><strong>Kriteria restart:</strong> SGPT &lt;100 U/L (&lt;2× BAN) + Bilirubin &lt;1,5 mg/dL + tanpa gejala hepatotoksisitas</div>
+              <div class="plan-row"><strong>Protokol bertahap:</strong> Rifampisin 450 mg/hr × 3–7 hr (cek LFT) → INH 300 mg/hr × 3–7 hr (cek LFT) → Etambutol ± PZA</div>
+              <div class="plan-row"><strong>Koordinasi:</strong> Laporan tertulis ke Sp.P (dr. Marscha) dan Poli Paru untuk pemantauan lanjutan</div>
+            </div>
+            <div class="alert alert-red"><div class="alert-icon">⚠</div><div>TB tidak dapat dibiarkan tanpa terapi lebih dari 2 minggu. Buat protokol re-introduksi tertulis dan resmi. SGPT masih 736 U/L (H3) — belum memenuhi syarat saat ini. Target restart: setelah lab 14 Mei.</div></div>
+          </div>
+        </div>
+
+        <div class="plan-card">
+          <div class="plan-card-header">
+            <div class="plan-card-title">Insulin Novorapid (Aspart) SK — Titrasi &amp; Rencana Pulang</div>
+            <span class="badge b-amber">PANTAU KETAT</span>
+          </div>
+          <div class="plan-card-body">
+            <div class="plan-grid-2">
+              <div class="plan-row"><strong>Dosis saat ini (H5):</strong> 3×10 IU SK sebelum makan</div>
+              <div class="plan-row"><strong>Target rawat inap:</strong> GDS 140–180 mg/dL (ADA Inpatient Standard)</div>
+              <div class="plan-row"><strong>Pemantauan:</strong> GDS tiap 8 jam sebelum makan; KGDH tiap 3 hari; HbA1c ulang 3 bulan rawat jalan</div>
+              <div class="plan-row"><strong>Rencana pulang:</strong> Metformin 3×500 mg (sesudah makan) + Gliklazid 2×80 mg (sebelum sarapan &amp; makan malam) — hanya jika eGFR &gt;30–45 mL/mnt saat pulang</div>
+            </div>
+            <div class="alert alert-amber"><div class="alert-icon">⚠</div><div>GDS 109 mg/dL (H4, 18:00) — risiko hipoglikemia. Pastikan pasien makan sebelum pemberian insulin. Pertimbangkan turunkan dosis jika asupan oral belum optimal konsisten.</div></div>
+          </div>
+        </div>
+
+        <div class="plan-card">
+          <div class="plan-card-header">
+            <div class="plan-card-title">Manajemen Hipertensi — Rekomendasi Inisiasi Baru</div>
+            <span class="badge b-red">BELUM DIOBATI</span>
+          </div>
+          <div class="plan-card-body">
+            <div class="plan-grid-2">
+              <div class="plan-row"><strong>Usulan obat:</strong> Amlodipin 5 mg sekali sehari (oral)</div>
+              <div class="plan-row"><strong>Alasan pemilihan:</strong> Aman di CKD; tidak perlu penyesuaian dosis ginjal/hati; tidak memperpanjang QTc; tidak ada interaksi signifikan dengan regimen saat ini</div>
+              <div class="plan-row"><strong>Hindari sementara:</strong> ACE Inhibitor / ARB selama AKI aktif (dapat memperburuk eGFR lebih lanjut)</div>
+              <div class="plan-row"><strong>Target TD:</strong> &lt;130/80 mmHg (ADA/KDIGO untuk DM + CKD). Pantau TD tiap shift (q8h)</div>
+            </div>
+            <div class="alert alert-blue"><div class="alert-icon">ℹ</div><div>Rekomendasi disampaikan kepada dr. Ardi (Sp.PD). Kardiomegali + DM + CKD = kerusakan organ target sudah terjadi. Hipertensi tidak boleh dibiarkan tanpa penanganan hingga pulang.</div></div>
+          </div>
+        </div>
+
+        <div class="plan-card">
+          <div class="plan-card-header">
+            <div class="plan-card-title">Ondansetron 4 mg IV — Evaluasi Kebutuhan Lanjutan &amp; Keamanan QTc</div>
+            <span class="badge b-amber">EVALUASI QTC</span>
+          </div>
+          <div class="plan-card-body">
+            <div class="plan-grid-2">
+              <div class="plan-row"><strong>Dosis saat ini:</strong> 4 mg IV setiap 8 jam (q8h)</div>
+              <div class="plan-row"><strong>Evaluasi efektivitas:</strong> Mual sudah berkurang signifikan H4–H5; pertimbangkan de-prescribing atau konversi ke PO</div>
+              <div class="plan-row"><strong>Pemantauan QTc:</strong> Konfirmasi nilai QTc dari EKG 09 Mei. Jika QTc &gt;450 ms: hentikan segera</div>
+              <div class="plan-row"><strong>Alternatif jika QTc bermasalah:</strong> Metoklopramid 10 mg IV q8h (hati-hati efek ekstrapiramidal pada penggunaan jangka panjang)</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="plan-card">
+          <div class="plan-card-header">
+            <div class="plan-card-title">IVFD NaCl 0,9% — Evaluasi Edema &amp; Keseimbangan Cairan</div>
+            <span class="badge b-amber">INVESTIGASI EDEMA</span>
+          </div>
+          <div class="plan-card-body">
+            <div class="plan-grid-2">
+              <div class="plan-row"><strong>Masalah teridentifikasi:</strong> Edema tungkai bilateral pitting muncul H4; kemungkinan kelebihan cairan pada CKD</div>
+              <div class="plan-row"><strong>Usulan tindakan:</strong> Kurangi laju infus ATAU ganti D5% 0,45% NaCl (beban natrium lebih rendah)</div>
+              <div class="plan-row"><strong>Pemeriksaan mendesak:</strong> Albumin serum + BNP/proBNP untuk membedakan penyebab edema</div>
+              <div class="plan-row"><strong>Pertimbangan lanjut:</strong> Ekokardiografi — kardiomegali pada foto toraks + edema baru perlu evaluasi fungsi jantung</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="plan-card">
+          <div class="plan-card-header">
+            <div class="plan-card-title">Seftriakson 2 g IV — Evaluasi Durasi &amp; Rencana Step-down</div>
+            <span class="badge b-teal">EVALUASI H5+</span>
+          </div>
+          <div class="plan-card-body">
+            <div class="plan-grid-2">
+              <div class="plan-row"><strong>Durasi saat ini:</strong> H5 dari 09 Mei (5 hari terapi)</div>
+              <div class="plan-row"><strong>Pertimbangan:</strong> Evaluasi CRP ulang terjadwal 14 Mei; jika membaik dan afebrile → rencana step-down atau penghentian</div>
+              <div class="plan-row"><strong>Keamanan renal:</strong> Tidak perlu penyesuaian dosis hingga eGFR &lt;10 mL/mnt — aman dilanjutkan</div>
+              <div class="plan-row"><strong>Risiko C. diff:</strong> Pantau diare dan nyeri abdomen baru — risiko C. difficile colitis pada penggunaan sefalosporin + PPI kombinasi</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="plan-card">
+          <div class="plan-card-header">
+            <div class="plan-card-title">Anemia — Investigasi Etiologi &amp; Rencana Suplementasi</div>
+            <span class="badge b-gray">PRIORITAS RENDAH-SEDANG</span>
+          </div>
+          <div class="plan-card-body">
+            <div class="plan-grid-2">
+              <div class="plan-row"><strong>Pemeriksaan diminta:</strong> Feritin serum, Fe serum, TIBC, hitung retikulosit</div>
+              <div class="plan-row"><strong>Jika defisiensi besi terkonfirmasi:</strong> Ferrous Sulfat 1×300 mg/hari PO — mulai setelah mual teratasi penuh</div>
+              <div class="plan-row"><strong>Follow-up:</strong> Cek Hb ulang saat pulang; tindak lanjut hematologi rawat jalan jika Hb &lt;10 g/dL atau tidak membaik</div>
+              <div class="plan-row"><strong>Catatan:</strong> Hb 12,0 stabil saat ini; tidak ada perdarahan aktif — prioritas rendah selama rawat inap akut</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="content-sep">2. Parameter Pemantauan Komprehensif</div>
+      <div class="table-scroll">
+      <table class="ct">
+        <thead>
+          <tr><th>Obat / Kondisi</th><th>Parameter Efektivitas</th><th>Parameter Keamanan</th><th>Frekuensi</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>DILI / Fungsi Hati</td><td>SGOT/SGPT trend ke &lt;2× BAN; Bilirubin &lt;1,0 mg/dL</td><td>Ensefalopati, koagulopati, perdarahan GI (tanda gagal hati)</td><td>Tiap 3 hari (14, 17 Mei)</td></tr>
+          <tr><td>OAT (re-introduksi)</td><td>Konversi sputum; gejala TB berkurang; foto toraks membaik</td><td>SGOT/SGPT: STOP jika ALT &gt;3× BAN + gejala, atau &gt;5× BAN tanpa gejala</td><td>LFT tiap minggu selama fase re-introduksi</td></tr>
+          <tr><td>Fungsi Ginjal</td><td>eGFR membaik; Ureum/Kreatinin menurun</td><td>Kalium; keseimbangan cairan; edema; berat badan harian</td><td>Ureum/Kreatinin harian fase akut; tiap 3 hari saat stabil</td></tr>
+          <tr><td>Insulin / DM</td><td>GDS 140–180 mg/dL; HbA1c &lt;7% jangka panjang</td><td>Hipoglikemia (GDS &lt;70 mg/dL): keringat dingin, gemetar, pusing</td><td>GDS tiap 8 jam sebelum makan; KGDH tiap 3 hari</td></tr>
+          <tr><td>QTc (Ondansetron)</td><td>QTc &lt;450 ms</td><td>QTc 450–500 ms → waspadai; &gt;500 ms → HENTI SEGERA semua agen QT-prolonging</td><td>EKG ulang dalam 48 jam; konfirmasi nilai dari EKG 09 Mei</td></tr>
+          <tr><td>Tekanan Darah (Hipertensi)</td><td>TD &lt;130/80 mmHg (target DM + CKD)</td><td>Hipotensi (TD &lt;90/60 mmHg) jika antihipertensi dimulai</td><td>Tiap shift (setiap 8 jam)</td></tr>
+          <tr><td>Edema / Keseimbangan Cairan</td><td>Edema berkurang; berat badan stabil</td><td>Peningkatan BB &gt;0,5 kg/hari → kemungkinan kelebihan cairan</td><td>Berat badan harian pagi hari; chart input-output tiap shift</td></tr>
+          <tr><td>Respirasi / SpO₂</td><td>SpO₂ &gt;95%; Laju Napas &lt;20 x/mnt</td><td>Bronkospasme paradoks (Combivent); hipokalemia (salbutamol)</td><td>SpO₂ tiap shift; elektrolit tiap 3 hari</td></tr>
+        </tbody>
+      </table>
+      </div>
+
+      <div class="content-sep">3. Pemeriksaan Laboratorium Terjadwal</div>
+      <div class="table-scroll">
+      <table class="ct">
+        <thead>
+          <tr><th>Tanggal</th><th>Pemeriksaan</th><th>Tujuan</th><th>Catatan</th></tr>
+        </thead>
+        <tbody>
+          <tr><td style="white-space:nowrap"><strong>14 Mei 2026</strong></td><td>SGOT, SGPT, Bilirubin TDI, Ureum, Kreatinin, eGFR</td><td>Pantau tren DILI dan AKI; tentukan kapan OAT bisa dimulai kembali</td><td>Kritis untuk keputusan re-introduksi OAT</td></tr>
+          <tr><td style="white-space:nowrap"><strong>14 Mei 2026</strong></td><td>Albumin serum, BNP/proBNP</td><td>Investigasi penyebab edema bilateral — kelebihan cairan vs. hipoalbuminemia vs. gagal jantung</td><td>Belum pernah diperiksa selama rawat inap</td></tr>
+          <tr><td style="white-space:nowrap"><strong>14 Mei 2026</strong></td><td>Feritin, Fe serum, TIBC, retikulosit</td><td>Konfirmasi etiologi anemia (defisiensi besi vs. anemia penyakit kronis)</td><td>Rencana terapi besi tergantung hasil ini</td></tr>
+          <tr><td style="white-space:nowrap"><strong>Segera</strong></td><td>Konfirmasi nilai QTc dari EKG 09 Mei 2026</td><td>Keamanan penggunaan Ondansetron yang sedang berlanjut</td><td>Jika QTc &gt;450 ms → evaluasi ulang antiemetik</td></tr>
+          <tr><td style="white-space:nowrap"><strong>3 bulan rawat jalan</strong></td><td>HbA1c, profil lipid, Ureum/Kreatinin/eGFR, SGOT/SGPT</td><td>Evaluasi kontrol DM jangka panjang; pemulihan ginjal dan hati post-discharge</td><td>Di Poli IPD dan Poli Paru sesuai jadwal</td></tr>
+        </tbody>
+      </table>
+      </div>
+
+      <div class="content-sep">4. Rencana Pulang &amp; Kriteria Layak Pulang</div>
+      <div class="two-col" style="margin-bottom:16px">
+        <div>
+          <div class="section-label" style="margin-bottom:10px">Kriteria Layak Pulang</div>
+          <ul class="bullet-list">
+            <li>Mual terkontrol; toleransi oral cukup untuk minum obat PO</li>
+            <li>SGPT &lt;3× BAN (&lt;150 U/L) dengan tren menurun</li>
+            <li>Kreatinin menurun dan eGFR stabil (idealnya &gt;30 mL/mnt)</li>
+            <li>SpO₂ &gt;95% tanpa O₂ tambahan atau dengan kebutuhan O₂ minimal</li>
+            <li>GDS terkontrol; dapat beralih ke obat oral DM</li>
+            <li>Hemodinamik stabil; tidak ada perburukan klinis baru</li>
+          </ul>
+        </div>
+        <div>
+          <div class="section-label" style="margin-bottom:10px">Obat Pulang (Rencana)</div>
+          <ul class="bullet-list">
+            <li>Metformin 3×500 mg sesudah makan (jika eGFR &gt;45 mL/mnt)</li>
+            <li>Gliklazid 2×80 mg sebelum sarapan &amp; makan malam</li>
+            <li>Curcuma 3×2 tab (lanjutkan hepatoprotektor)</li>
+            <li>Omeprazol 1×20 mg pagi hari (turun ke dosis rumatan)</li>
+            <li>Sukralfat sirup PRN jika masih ada gejala dispepsia</li>
+            <li>Amlodipin 5 mg sekali sehari (jika disetujui DPJP)</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="content-sep">5. Edukasi Pasien &amp; Keluarga</div>
+      <ul class="bullet-list" style="margin-bottom:14px">
+        <li><strong>DILI dan OAT:</strong> Jelaskan mengapa OAT harus dihentikan sementara dan KAPAN boleh dimulai kembali. Tekankan: jangan menghentikan OAT sendiri di kemudian hari tanpa konfirmasi dokter — resistansi obat sangat berbahaya</li>
+        <li><strong>TB adalah penyakit menular:</strong> Pentingnya penggunaan masker (terutama di dalam rumah), ventilasi ruangan yang baik, dan kepatuhan OAT penuh minimal 6 bulan tanpa putus untuk mencegah resistansi</li>
+        <li><strong>Tanda bahaya yang harus segera ke dokter:</strong> Kulit/mata kuning (ikterus) kambuh, urin gelap seperti teh, mual-muntah berat kambali, sesak napas memburuk, nyeri perut baru</li>
+        <li><strong>Manajemen DM mandiri:</strong> Jadwal minum obat, diet rendah gula &amp; karbohidrat (1.200–1.500 kkal/hari), cara pemantauan GDS mandiri, mengenali gejala hipoglikemia (gemetar, keringat dingin, pusing, lemas tiba-tiba)</li>
+        <li><strong>Pantangan obat sendiri:</strong> Hindari parasetamol dosis tinggi (&gt;1 g/dosis), NSAID (ibuprofen, diklofenak, asam mefenamat), dan suplemen herbal tidak terstandar — semua dapat memperburuk fungsi hati yang sedang dalam pemulihan</li>
+        <li><strong>Jadwal kontrol:</strong> Poli IPD (dr. Ardi Sp.PD) Sabtu pagi atau Senin/Kamis sore pukul 16.00; Poli Paru (dr. Marscha Sp.P) untuk re-evaluasi TB dan rencana restart OAT</li>
+      </ul>
+
+      <div class="alert alert-teal">
+        <div class="alert-icon">✓</div>
+        <div><strong>Catatan Apoteker Klinis:</strong> Pasien DEDY menunjukkan respons terapi yang sangat baik dalam 5 hari rawat inap — perbaikan dramatis SGOT/SGPT (↓94% dan ↓62%) serta fungsi ginjal (Cr ↓44%). Tiga prioritas yang belum teratasi dan memerlukan tindak lanjut segera: (1) <strong>Re-introduksi OAT bertahap</strong> segera setelah SGPT &lt;100 U/L, (2) <strong>Inisiasi antihipertensi</strong> mengingat hipertensi persisten pada pasien dengan DM + CKD + kardiomegali, dan (3) <strong>Investigasi edema bilateral baru</strong> dengan pemeriksaan albumin serum dan BNP. Prognosis jangka pendek baik dengan tatalaksana aktif dan kepatuhan pasien yang baik.</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ========================================= TAB RINGKASAN ========================================= -->
+<section id="tab-sum" class="tab-section">
+
+  <div class="stats-row">
+    <div class="stat-box s-red">
+      <div class="stat-lbl">Total DTP Teridentifikasi</div>
+      <div class="stat-val">8</div>
+      <div class="stat-sub">Per Cipolle, Strand &amp; Morley</div>
+    </div>
+    <div class="stat-box s-amber">
+      <div class="stat-lbl">DTP Kritis / Tinggi</div>
+      <div class="stat-val">5</div>
+      <div class="stat-sub">Memerlukan tindakan segera</div>
+    </div>
+    <div class="stat-box s-teal">
+      <div class="stat-lbl">Target Belum Tercapai</div>
+      <div class="stat-val">4</div>
+      <div class="stat-sub">Dari 7 target terapi</div>
+    </div>
+    <div class="stat-box s-green">
+      <div class="stat-lbl">Lab Terjadwal Berikutnya</div>
+      <div class="stat-val">14</div>
+      <div class="stat-sub">Mei 2026</div>
+    </div>
+  </div>
+
+  <div class="priority-cards">
+    <div class="priority-card prio-red">
+      <div class="prio-eyebrow">DTP 2 — Paling Mendesak</div>
+      <div class="prio-title">TB Aktif Tanpa OAT</div>
+      <div class="prio-desc">TB tidak dapat dibiarkan tanpa terapi &gt;2 minggu. Susun protokol re-introduksi bertahap (Rifampisin → INH → Etambutol) segera. Target restart: SGPT &lt;100 U/L setelah lab 14 Mei.</div>
+    </div>
+    <div class="priority-card prio-amber">
+      <div class="prio-eyebrow">DTP 6 — Kritis Tersembunyi</div>
+      <div class="prio-title">Hipertensi Tidak Diobati</div>
+      <div class="prio-desc">Kardiomegali + DM + CKD = kerusakan organ target sudah terjadi. Target TD &lt;130/80 mmHg. Amlodipin 5 mg aman saat AKI aktif. Hindari RAAS dahulu hingga eGFR stabil.</div>
+    </div>
+    <div class="priority-card prio-blue">
+      <div class="prio-eyebrow">DTP 7 — Perlu Investigasi</div>
+      <div class="prio-title">Edema Bilateral Baru</div>
+      <div class="prio-desc">Muncul H4 (12 Mei). Periksa albumin serum + BNP/proBNP segera. Pertimbangkan ekokardiografi. Kurangi cairan NaCl atau ganti jenis cairan bila kelebihan cairan terbukti.</div>
+    </div>
+  </div>
+
+  <div class="soap-block">
+    <div class="soap-block-header" style="padding:12px 18px">
+      <div style="font-size:14px;font-weight:600;color:var(--gray-900)">Ringkasan Status DTP &amp; Luaran</div>
+    </div>
+    <div class="soap-block-body" style="padding:0">
+      <div class="table-scroll">
+      <table class="ct">
+        <thead>
+          <tr>
+            <th style="min-width:30px">No.</th>
+            <th>Masalah Terkait Obat</th>
+            <th>Obat Terlibat</th>
+            <th>Kategori DTP</th>
+            <th>Status Masuk RS</th>
+            <th>Status H5</th>
+            <th>Luaran</th>
+            <th>Tindakan Prioritas</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="font-family:var(--font-mono);font-weight:700;color:var(--red-600)">1</td>
+            <td>DILI ec OAT</td>
+            <td>Arsitam + Rifamtibi</td>
+            <td><span class="badge b-red">Efek Samping Obat</span></td>
+            <td>SGOT 1.405, SGPT 1.936 — KRITIS</td>
+            <td>SGOT 81, SGPT 736 — MEMBAIK</td>
+            <td><span class="badge b-amber">Sebagian Teratasi</span></td>
+            <td>Pantau SGPT; restart OAT saat &lt;100 U/L</td>
+          </tr>
+          <tr>
+            <td style="font-family:var(--font-mono);font-weight:700;color:var(--red-600)">2</td>
+            <td>TB aktif tanpa OAT</td>
+            <td>OAT ditangguhkan</td>
+            <td><span class="badge b-red">Indikasi Tidak Diobati</span></td>
+            <td>OAT stop 05 Mei — TB aktif</td>
+            <td>SGPT masih 736 — belum bisa restart</td>
+            <td><span class="badge b-red">Tidak Teratasi</span></td>
+            <td>MENDESAK: protokol re-introduksi tertulis</td>
+          </tr>
+          <tr>
+            <td style="font-family:var(--font-mono);font-weight:700;color:var(--gold-500)">3</td>
+            <td>Metformin kontraindikasi AKI</td>
+            <td>Metformin 500 mg</td>
+            <td><span class="badge b-amber">Obat Tidak Sesuai</span></td>
+            <td>eGFR 22 — kontraindikasi aktif</td>
+            <td>Dihentikan; Insulin dimulai</td>
+            <td><span class="badge b-amber">Sebagian Teratasi</span></td>
+            <td>Restart Metformin saat pulang jika eGFR &gt;45</td>
+          </tr>
+          <tr>
+            <td style="font-family:var(--font-mono);font-weight:700;color:var(--gold-500)">4</td>
+            <td>QTc aditif — DDI</td>
+            <td>Levofloksasin + Ondansetron</td>
+            <td><span class="badge b-amber">Interaksi Obat</span></td>
+            <td>Kombinasi QT risiko tinggi</td>
+            <td>Levofloksasin stop; QTc belum dicatat</td>
+            <td><span class="badge b-amber">Sebagian Teratasi</span></td>
+            <td>Konfirmasi nilai QTc dari EKG segera</td>
+          </tr>
+          <tr>
+            <td style="font-family:var(--font-mono);font-weight:700;color:var(--gold-500)">5</td>
+            <td>Dosis insulin kurang efektif</td>
+            <td>Insulin Novorapid</td>
+            <td><span class="badge b-amber">Dosis Terlalu Rendah</span></td>
+            <td>HbA1c 8,5%; GDS 246 mg/dL</td>
+            <td>GDS 147–171; titrasi ke 3×10 IU</td>
+            <td><span class="badge b-amber">Sebagian Teratasi</span></td>
+            <td>GDS q8h; OHO oral saat pulang</td>
+          </tr>
+          <tr>
+            <td style="font-family:var(--font-mono);font-weight:700;color:var(--blue-600)">6</td>
+            <td>Hipertensi tidak diobati</td>
+            <td>Tidak ada antihipertensi</td>
+            <td><span class="badge b-blue">Indikasi Tidak Diobati</span></td>
+            <td>TD 144–159 mmHg persisten</td>
+            <td>Hipertensi persisten 5 hari</td>
+            <td><span class="badge b-red">Tidak Teratasi</span></td>
+            <td>Usulkan Amlodipin 5 mg ke dr. Ardi</td>
+          </tr>
+          <tr>
+            <td style="font-family:var(--font-mono);font-weight:700;color:var(--blue-600)">7</td>
+            <td>Edema bilateral baru</td>
+            <td>NaCl 0,9% 1.000 mL/hari</td>
+            <td><span class="badge b-blue">Kemungkinan Efek Samping</span></td>
+            <td>Edema muncul H4 (12 Mei)</td>
+            <td>Menetap; penyebab belum teridentifikasi</td>
+            <td><span class="badge b-red">Tidak Teratasi</span></td>
+            <td>Cek albumin + BNP; pertimbangkan echo</td>
+          </tr>
+          <tr>
+            <td style="font-family:var(--font-mono);font-weight:700;color:var(--green-600)">8</td>
+            <td>Anemia RDW tinggi</td>
+            <td>Tidak ada suplemen besi</td>
+            <td><span class="badge b-gray">Indikasi Potensial</span></td>
+            <td>Hb 12,0; RDW 19,5%</td>
+            <td>Belum diselidiki</td>
+            <td><span class="badge b-gray">Status Tidak Diketahui</span></td>
+            <td>Pesan feritin, Fe serum, TIBC, retikulosit</td>
+          </tr>
+        </tbody>
+      </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="note-box">
+    <strong>Catatan Metodologi:</strong> Dokumentasi SOAP ini menggunakan kerangka kerja Pharmaceutical Care (Cipolle, Strand &amp; Morley, 2012) untuk identifikasi DTP, serta PCNE Classification V9.1 untuk kode masalah dan intervensi. Pemantauan TDM (Therapeutic Drug Monitoring) dilakukan berdasarkan data farmakokinetik dan fungsi organ pasien. Semua rekomendasi bersifat advisory dan harus dikonfirmasi bersama DPJP sebelum diterapkan. Kajian ini berlaku untuk periode 09–13 Mei 2026 dan perlu diperbarui setelah hasil laboratorium 14 Mei tersedia.
+  </div>
+
+</section>
+
+</main>
+
+<script>
+function showTab(id, btn) {
+  document.querySelectorAll('.tab-section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+
+</body>
+</html>
